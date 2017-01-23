@@ -1,14 +1,14 @@
 /**
  * Created by jakub.a.kret@gmail.com on 2017-01-23.
  */
-public class DataObject {
+public class Dataobject {
     private int id;
     private Data data;
 
 
     @Override
     public String toString() {
-        return "DataObject{" +
+        return "Dataobject{" +
                 "id=" + id +
                 ", data=" + data +
                 '}';
@@ -26,7 +26,7 @@ public class DataObject {
         return data;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setData(Data Data) {
+        this.data = Data;
     }
 }

@@ -4,31 +4,31 @@ import java.util.List;
  * Created by jakub.a.kret@gmail.com on 2017-01-23.
  */
 public class DataContainer {
-    private Links links;
-    private List<DataObject> dataObjects;
+    private Links Links;
+    private List<Dataobject> Dataobject;
 
 
     @Override
     public String toString() {
         return "DataContainer{" +
-                "links=" + links +
-                ", dataObjects=" + dataObjects +
+                "Links=" + Links +
+                ", Dataobject=" + Dataobject +
                 '}';
     }
 
     public Links getLinks() {
-        return links;
+        return Links;
     }
 
     public void setLinks(Links links) {
-        this.links = links;
+        this.Links = links;
     }
 
-    public List<DataObject> getDataObjects() {
-        return dataObjects;
+    public List<Dataobject> getDataobject() {
+        return Dataobject;
     }
 
-    public void setDataObjects(List<DataObject> dataObjects) {
-        this.dataObjects = dataObjects;
+    public void setDataobject(List<Dataobject> dataobject) {
+        this.Dataobject = dataobject;
     }
 }
