@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -5,10 +7,12 @@ import java.util.List;
  */
 public class Sejm {
     private List<Deputy> deputies;
+    private int termOfOffice;
 
 
-    public Sejm(List<Deputy> deputies) {
-        this.deputies = deputies;
+    public Sejm(SejmBuilder builder) throws IOException {
+        this.deputies = builder.getDeputies();
+        this.termOfOffice = builder.getTermOfOffice();
     }
 
     @Override
@@ -16,5 +20,10 @@ public class Sejm {
         return "Sejm{" +
                 "deputies=" + deputies +
                 '}';
+    }
+
+    public void saveDeputiesToTxt() throws IOException{
+        PrintWriter out = new PrintWriter("term" + this.termOfOffice + "deputies.txt");
+        this.deputies.forEach(deputy -> out.println(deputy.toTxtFile()));
     }
 }

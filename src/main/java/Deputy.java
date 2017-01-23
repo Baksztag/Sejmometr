@@ -6,6 +6,11 @@ public class Deputy {
     private String name;
 
 
+    public Deputy(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Deputy{" +
@@ -14,8 +19,7 @@ public class Deputy {
                 '}';
     }
 
-    public Deputy(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public String toTxtFile() {
+        return id + " " + name;
     }
 }

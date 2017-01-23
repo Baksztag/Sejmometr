@@ -13,20 +13,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         try {
-            List<Deputy> deputies = new LinkedList<>();
-
-            Gson gson = new Gson();
-            URL url = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
-            DataContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
-            while (res.getLinks().getNext() != null) {
-                url = new URL(res.getLinks().getNext().replace("\\", ""));
-                res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
-                res.getDataobject().forEach(dataobject -> {
-                    deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
-                });
-            }
-            Sejm sejm = new Sejm(deputies);
+            SejmBuilder builder = new SejmBuilderFromAPI(8);
+            Sejm sejm = new Sejm(builder);
             System.out.println(sejm);
+            sejm.saveDeputiesToTxt();
         } catch (Exception e) {
             System.err.println(e);
         }
