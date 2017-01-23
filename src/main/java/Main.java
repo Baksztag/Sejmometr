@@ -1,9 +1,13 @@
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import utils.DataContainer;
+import utils.Deputy;
+import utils.Sejm;
 
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by jakub.a.kret@gmail.com on 2017-01-23.
@@ -11,18 +15,20 @@ import java.net.URL;
 public class Main {
     public static void main(String[] args) {
         try {
-            StringBuilder builder = new StringBuilder();
+            List<Deputy> deputies = new LinkedList<>();
 
             Gson gson = new Gson();
             URL url = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
             DataContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
-            builder.append(res);
             while (res.getLinks().getNext() != null) {
                 url = new URL(res.getLinks().getNext().replace("\\", ""));
                 res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
-                builder.append(res);
+                res.getDataobject().forEach(dataobject -> {
+                    deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+                });
             }
-            System.out.println(builder.toString());
+            Sejm sejm = new Sejm(deputies);
+            System.out.println(sejm);
         } catch (Exception e) {
             System.err.println(e);
         }

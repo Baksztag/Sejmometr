@@ -7,21 +7,21 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Data {
     @SerializedName("ludzie.nazwa")
-    private String ludzie_id;
+    private String name;
 
 
     @Override
     public String toString() {
         return "Data{" +
-                "ludzie_id='" + ludzie_id + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 
-    public String getLudzie_id() {
-        return ludzie_id;
+    public String getName() {
+        return name;
     }
 
-    public void setLudzie_id(String ludzie_id) {
-        this.ludzie_id = ludzie_id;
+    public void setName(String name) {
+        this.name = name;
     }
 }
