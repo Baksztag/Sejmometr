@@ -11,10 +11,18 @@ import java.net.URL;
 public class Main {
     public static void main(String[] args) {
         try {
+            StringBuilder builder = new StringBuilder();
+
             Gson gson = new Gson();
             URL url = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
             DataContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
-            System.out.println(res);
+            builder.append(res);
+            while (res.getLinks().getNext() != null) {
+                url = new URL(res.getLinks().getNext().replace("\\", ""));
+                res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
+                builder.append(res);
+            }
+            System.out.println(builder.toString());
         } catch (Exception e) {
             System.err.println(e);
         }
