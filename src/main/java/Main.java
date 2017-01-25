@@ -12,20 +12,24 @@ import java.net.URL;
 public class Main {
     public static void main(String[] args) {
         try {
-            String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/333.json?layers[]=wyjazdy&layers[]=wydatki";
+
+//            String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/333.json?layers[]=wyjazdy&layers[]=wydatki";
             Deputy deputy = new Deputy(333, "Dorota Rutkowska");
             System.out.println(deputy);
             System.out.println(deputy.getTripsAbroad());
             System.out.println(deputy.getMostExpensiveTrip());
             System.out.println(deputy.getDaysAbroad());
             System.out.println(deputy.visitedItaly());
+            System.out.println(deputy.getExpenses());
+            System.out.println(deputy.getMinorFixesExpenses());
             System.out.println(deputy.toTxt());
+
 //            System.out.println(res.getDaysAbroad());
 //            System.out.println(res.getMostExpensiveTrip());
 //            System.out.println(res.getTripsAbroad());
 //            System.out.println(res.visittedItaly());
 
-//            SejmBuilder builder = new SejmBuilderFromAPI(8);
+//            SejmBuilder builder = new SejmBuilderFromAPI(7);
 //            SejmBuilder builder = new SejmBuilderFromTxt(8);
 //            Sejm sejm = new Sejm(builder);
 //            System.out.println(sejm.getDeputies().size());

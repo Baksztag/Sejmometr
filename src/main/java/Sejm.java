@@ -25,7 +25,7 @@ public class Sejm {
         File file = new File("term" + this.termOfOffice + "deputies.txt");
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
         for(Deputy deputy : deputies) {
-            writer.write(deputy.toTxtFile());
+            writer.write(deputy.toTxt());
             writer.newLine();
         }
         writer.close();

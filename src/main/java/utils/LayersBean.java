@@ -6,8 +6,8 @@ import java.util.List;
  * Created by jakub.a.kret@gmail.com on 2017-01-25.
  */
 public class LayersBean {
-    List<Departures> wyjazdy;
-    Expenses wydatki;
+    private List<Departures> wyjazdy;
+    private Expenses wydatki;
 
 
     @Override
