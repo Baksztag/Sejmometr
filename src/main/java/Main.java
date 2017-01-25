@@ -14,7 +14,7 @@ public class Main {
         try {
 
 //            String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/333.json?layers[]=wyjazdy&layers[]=wydatki";
-            Deputy deputy = new Deputy(333, "Dorota Rutkowska");
+            Deputy deputy = new Deputy(new DeputyBuilderFromAPI(333, "Dorota Rutkowska"));
             System.out.println(deputy);
             System.out.println(deputy.getTripsAbroad());
             System.out.println(deputy.getMostExpensiveTrip());

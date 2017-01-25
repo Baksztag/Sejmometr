@@ -13,21 +13,21 @@ public class SejmBuilderFromTxt implements SejmBuilder {
     private int termOfOffice;
 
 
-    public SejmBuilderFromTxt(int termOfOffice) throws IOException {
-        this.termOfOffice = termOfOffice;
-        String filename = "term" + this.termOfOffice + "deputies.txt";
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
-        List<Deputy> deputies = new LinkedList<>();
-        String line = reader.readLine();
-        while (line != null) {
-            deputies.add(new Deputy
-                    (Integer.parseInt(line.split(" ", 2)[0]),
-                            line.split(" ", 2)[1]));
-            line = reader.readLine();
-        }
-        this.deputies = deputies;
-    }
+//    public SejmBuilderFromTxt(int termOfOffice) throws IOException {
+//        this.termOfOffice = termOfOffice;
+//        String filename = "term" + this.termOfOffice + "deputies.txt";
+//
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
+//        List<Deputy> deputies = new LinkedList<>();
+//        String line = reader.readLine();
+//        while (line != null) {
+//            deputies.add(new Deputy
+//                    (Integer.parseInt(line.split(" ", 2)[0]),
+//                            line.split(" ", 2)[1]));
+//            line = reader.readLine();
+//        }
+//        this.deputies = deputies;
+//    }
 
     @Override
     public List<Deputy> getDeputies() {

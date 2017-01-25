@@ -23,76 +23,87 @@ public class Deputy {
     private double minorFixesExpenses;
 
 
-    public Deputy(int id, String name) throws IOException{
-        this.id = id;
-        this.name = name;
-
-        String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/" + id + ".json?layers[]=wyjazdy&layers[]=wydatki";
-        URL url = new URL(link);
-        Gson gson = new Gson();
-        try {
-            DeputyContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DeputyContainer.class);
-            List<Expenses.PunktyBean> punkty = res.getLayers().getWydatki().getPunkty();
-            List<Expenses.RocznikiBean> roczniki = res.getLayers().getWydatki().getRoczniki();
-
-            this.expenses = getExpenses(roczniki);
-            this.minorFixesExpenses = getMinorFixesExpenses(roczniki, getMinorFixesIndex(punkty));
-
-            int trips = 0;
-            int days = 0;
-            double mostExpensive = 0;
-            boolean italy = false;
-            for(utils.Departures departure : res.getLayers().getWyjazdy()) {
-                if(!departure.getKraj().equals("Polska")) {
-                    trips++;
-                    days += departure.getLiczba_dni();
-                    if(departure.getKraj().equals("Włochy")) {
-                        italy = true;
-                    }
-                }
-
-                if(departure.getKoszt_suma() > mostExpensive) {
-                    mostExpensive = departure.getKoszt_suma();
-                }
-            }
-            this.tripsAbroad = trips;
-            this.daysAbroad = days;
-            this.mostExpensiveTrip = mostExpensive;
-            this.visitedItaly = italy;
-        } catch (JsonSyntaxException e) {
-            System.out.println(e);
-        }
+    public Deputy(DeputyBuilder builder) {
+        this.id = builder.getId();
+        this.name = builder.getName();
+        this.tripsAbroad = builder.getTripsAbroad();
+        this.daysAbroad = builder.getDaysAbroad();
+        this.mostExpensiveTrip = builder.getMostExpensiveTrip();
+        this.visitedItaly = builder.getVisitedItaly();
+        this.expenses = builder.getExpenses();
+        this.minorFixesExpenses = builder.getMinorFixesExpenses();
     }
 
-    private double getExpenses(List<Expenses.RocznikiBean> roczniki) {
-        double sumOfExpenses = 0;
-        for(Expenses.RocznikiBean rocznik : roczniki) {
-            for(String pole : rocznik.getPola()) {
-                sumOfExpenses += Double.parseDouble(pole);
-            }
-        }
-        return sumOfExpenses;
-    }
-
-    private int getMinorFixesIndex(List<Expenses.PunktyBean> punkty) {
-        int minorFixesIndex = 0;
-        for(int i = 0; i < punkty.size(); i++) {
-            if(punkty.get(i).getTytul().contains("Koszty drobnych napraw")) {
-                minorFixesIndex = i;
-            }
-        }
-        return minorFixesIndex;
-    }
-
-    private double getMinorFixesExpenses(List<Expenses.RocznikiBean> roczniki, int minorFixesIndex) {
-        double minorFixesExpenses = 0;
-        for(Expenses.RocznikiBean rocznik : roczniki) {
-            for(int i = 0; i < rocznik.getPola().size(); i++) {
-                minorFixesExpenses += Double.parseDouble(rocznik.getPola().get(minorFixesIndex));
-            }
-        }
-        return minorFixesExpenses;
-    }
+//    public Deputy(int id, String name) throws IOException{
+//        this.id = id;
+//        this.name = name;
+//
+//        String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/" + id + ".json?layers[]=wyjazdy&layers[]=wydatki";
+//        URL url = new URL(link);
+//        Gson gson = new Gson();
+//        try {
+//            DeputyContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DeputyContainer.class);
+//            List<Expenses.PunktyBean> punkty = res.getLayers().getWydatki().getPunkty();
+//            List<Expenses.RocznikiBean> roczniki = res.getLayers().getWydatki().getRoczniki();
+//
+//            this.expenses = getExpenses(roczniki);
+//            this.minorFixesExpenses = getMinorFixesExpenses(roczniki, getMinorFixesIndex(punkty));
+//
+//            int trips = 0;
+//            int days = 0;
+//            double mostExpensive = 0;
+//            boolean italy = false;
+//            for(utils.Departures departure : res.getLayers().getWyjazdy()) {
+//                if(!departure.getKraj().equals("Polska")) {
+//                    trips++;
+//                    days += departure.getLiczba_dni();
+//                    if(departure.getKraj().equals("Włochy")) {
+//                        italy = true;
+//                    }
+//                }
+//
+//                if(departure.getKoszt_suma() > mostExpensive) {
+//                    mostExpensive = departure.getKoszt_suma();
+//                }
+//            }
+//            this.tripsAbroad = trips;
+//            this.daysAbroad = days;
+//            this.mostExpensiveTrip = mostExpensive;
+//            this.visitedItaly = italy;
+//        } catch (JsonSyntaxException e) {
+//            System.out.println(e);
+//        }
+//    }
+//
+//    private double getExpenses(List<Expenses.RocznikiBean> roczniki) {
+//        double sumOfExpenses = 0;
+//        for(Expenses.RocznikiBean rocznik : roczniki) {
+//            for(String pole : rocznik.getPola()) {
+//                sumOfExpenses += Double.parseDouble(pole);
+//            }
+//        }
+//        return sumOfExpenses;
+//    }
+//
+//    private int getMinorFixesIndex(List<Expenses.PunktyBean> punkty) {
+//        int minorFixesIndex = 0;
+//        for(int i = 0; i < punkty.size(); i++) {
+//            if(punkty.get(i).getTytul().contains("Koszty drobnych napraw")) {
+//                minorFixesIndex = i;
+//            }
+//        }
+//        return minorFixesIndex;
+//    }
+//
+//    private double getMinorFixesExpenses(List<Expenses.RocznikiBean> roczniki, int minorFixesIndex) {
+//        double minorFixesExpenses = 0;
+//        for(Expenses.RocznikiBean rocznik : roczniki) {
+//            for(int i = 0; i < rocznik.getPola().size(); i++) {
+//                minorFixesExpenses += Double.parseDouble(rocznik.getPola().get(minorFixesIndex));
+//            }
+//        }
+//        return minorFixesExpenses;
+//    }
 
     @Override
     public String toString() {
