@@ -24,14 +24,19 @@ public class Main {
             System.out.println(deputy.getMinorFixesExpenses());
             System.out.println(deputy.toTxt());
 
+
 //            System.out.println(res.getDaysAbroad());
 //            System.out.println(res.getMostExpensiveTrip());
 //            System.out.println(res.getTripsAbroad());
 //            System.out.println(res.visittedItaly());
 
-//            SejmBuilder builder = new SejmBuilderFromAPI(7);
-//            SejmBuilder builder = new SejmBuilderFromTxt(8);
-//            Sejm sejm = new Sejm(builder);
+            SejmBuilder builder1 = new SejmBuilderFromAPI(7);
+            SejmBuilder builder2 = new SejmBuilderFromAPI(8);
+            Sejm sejm1 = new Sejm(builder1);
+            Sejm sejm2 = new Sejm(builder2);
+            System.out.println(sejm1);
+            sejm1.saveDeputiesToTxt();
+            sejm2.saveDeputiesToTxt();
 //            System.out.println(sejm.getDeputies().size());
 //            System.out.println(sejm);
 //            sejm.saveDeputiesToTxt();
