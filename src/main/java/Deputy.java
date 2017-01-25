@@ -20,6 +20,9 @@ public class Deputy {
     }
 
     public String toTxtFile() {
+        if(name.isEmpty()) {
+            return id + " " + "unknown";
+        }
         return id + " " + name;
     }
 }

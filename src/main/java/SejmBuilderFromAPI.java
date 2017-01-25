@@ -29,6 +29,10 @@ public class SejmBuilderFromAPI implements SejmBuilder {
             url = new URL(res.getLinks().getNext().replace("\\", ""));
             res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
         }
+        res.getDataobject().forEach(dataobject -> {
+            deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+        });
+
         this.deputies = deputies;
         this.termOfOffice = termOfOffice;
     }

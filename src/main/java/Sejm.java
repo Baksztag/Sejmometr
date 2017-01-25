@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -23,7 +22,20 @@ public class Sejm {
     }
 
     public void saveDeputiesToTxt() throws IOException{
-        PrintWriter out = new PrintWriter("term" + this.termOfOffice + "deputies.txt");
-        this.deputies.forEach(deputy -> out.println(deputy.toTxtFile()));
+        File file = new File("term" + this.termOfOffice + "deputies.txt");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+        for(Deputy deputy : deputies) {
+            writer.write(deputy.toTxtFile());
+            writer.newLine();
+        }
+        writer.close();
+    }
+
+    public List<Deputy> getDeputies() {
+        return deputies;
+    }
+
+    public int getTermOfOffice() {
+        return termOfOffice;
     }
 }
