@@ -24,13 +24,21 @@ public class SejmBuilderFromAPI implements SejmBuilder {
         DataContainer res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
         while (res.getLinks().getNext() != null) {
             res.getDataobject().forEach(dataobject -> {
-                deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+                try {
+                    deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+                } catch (IOException e) {
+                    System.err.println(e);
+                }
             });
             url = new URL(res.getLinks().getNext().replace("\\", ""));
             res = gson.fromJson(new JsonReader(new InputStreamReader(url.openStream())), DataContainer.class);
         }
         res.getDataobject().forEach(dataobject -> {
-            deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+            try {
+                deputies.add(new Deputy(dataobject.getId(), dataobject.getData().getName()));
+            } catch (IOException e) {
+                System.err.println(e);
+            }
         });
 
         this.deputies = deputies;

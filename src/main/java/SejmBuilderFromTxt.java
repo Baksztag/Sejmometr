@@ -21,10 +21,9 @@ public class SejmBuilderFromTxt implements SejmBuilder {
         List<Deputy> deputies = new LinkedList<>();
         String line = reader.readLine();
         while (line != null) {
-//            System.out.println(line);
             deputies.add(new Deputy
                     (Integer.parseInt(line.split(" ", 2)[0]),
-                    line.split(" ", 2)[1]));
+                            line.split(" ", 2)[1]));
             line = reader.readLine();
         }
         this.deputies = deputies;
