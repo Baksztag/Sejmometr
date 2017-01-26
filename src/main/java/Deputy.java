@@ -113,6 +113,14 @@ public class Deputy {
                 '}';
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public int getTripsAbroad() {
         return tripsAbroad;
     }

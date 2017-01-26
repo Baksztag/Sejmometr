@@ -14,15 +14,15 @@ public class Main {
         try {
 
 //            String link = "https://api-v3.mojepanstwo.pl/dane/poslowie/333.json?layers[]=wyjazdy&layers[]=wydatki";
-            Deputy deputy = new Deputy(new DeputyBuilderFromAPI(333, "Dorota Rutkowska"));
-            System.out.println(deputy);
-            System.out.println(deputy.getTripsAbroad());
-            System.out.println(deputy.getMostExpensiveTrip());
-            System.out.println(deputy.getDaysAbroad());
-            System.out.println(deputy.visitedItaly());
-            System.out.println(deputy.getExpenses());
-            System.out.println(deputy.getMinorFixesExpenses());
-            System.out.println(deputy.toTxt());
+//            Deputy deputy = new Deputy(new DeputyBuilderFromAPI(333, "Dorota Rutkowska"));
+//            System.out.println(deputy);
+//            System.out.println(deputy.getTripsAbroad());
+//            System.out.println(deputy.getMostExpensiveTrip());
+//            System.out.println(deputy.getDaysAbroad());
+//            System.out.println(deputy.visitedItaly());
+//            System.out.println(deputy.getExpenses());
+//            System.out.println(deputy.getMinorFixesExpenses());
+//            System.out.println(deputy.toTxt());
 
 
 //            System.out.println(res.getDaysAbroad());
@@ -30,13 +30,18 @@ public class Main {
 //            System.out.println(res.getTripsAbroad());
 //            System.out.println(res.visittedItaly());
 
-            SejmBuilder builder1 = new SejmBuilderFromAPI(7);
-            SejmBuilder builder2 = new SejmBuilderFromAPI(8);
+//            SejmBuilder builder1 = new SejmBuilderFromAPI(7);
+//            SejmBuilder builder2 = new SejmBuilderFromAPI(8);
+            SejmBuilder builder1 = new SejmBuilderFromTxt(7);
+            SejmBuilder builder2 = new SejmBuilderFromTxt(8);
             Sejm sejm1 = new Sejm(builder1);
             Sejm sejm2 = new Sejm(builder2);
             System.out.println(sejm1);
-            sejm1.saveDeputiesToTxt();
-            sejm2.saveDeputiesToTxt();
+            System.out.println(sejm1.getDeputies().size());
+            System.out.println(sejm2);
+            System.out.println(sejm2.getDeputies().size());
+//            sejm1.saveDeputiesToTxt();
+//            sejm2.saveDeputiesToTxt();
 //            System.out.println(sejm.getDeputies().size());
 //            System.out.println(sejm);
 //            sejm.saveDeputiesToTxt();

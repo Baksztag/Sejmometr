@@ -23,7 +23,7 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
     private double minorFixesExpenses;
 
 
-    public DeputyBuilderFromAPI(int id, String name) throws IOException{
+    public DeputyBuilderFromAPI(int id, String name) throws IOException {
         this.id = id;
         this.name = name;
 
@@ -42,16 +42,16 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
             int days = 0;
             double mostExpensive = 0;
             boolean italy = false;
-            for(utils.Departures departure : res.getLayers().getWyjazdy()) {
-                if(!departure.getKraj().equals("Polska")) {
+            for (utils.Departures departure : res.getLayers().getWyjazdy()) {
+                if (!departure.getKraj().equals("Polska")) {
                     trips++;
                     days += departure.getLiczba_dni();
-                    if(departure.getKraj().equals("Włochy")) {
+                    if (departure.getKraj().equals("Włochy")) {
                         italy = true;
                     }
                 }
 
-                if(departure.getKoszt_suma() > mostExpensive) {
+                if (departure.getKoszt_suma() > mostExpensive) {
                     mostExpensive = departure.getKoszt_suma();
                 }
             }
@@ -66,8 +66,8 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
 
     private double getExpenses(List<Expenses.RocznikiBean> roczniki) {
         double sumOfExpenses = 0;
-        for(Expenses.RocznikiBean rocznik : roczniki) {
-            for(String pole : rocznik.getPola()) {
+        for (Expenses.RocznikiBean rocznik : roczniki) {
+            for (String pole : rocznik.getPola()) {
                 sumOfExpenses += Double.parseDouble(pole);
             }
         }
@@ -76,8 +76,8 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
 
     private int getMinorFixesIndex(List<Expenses.PunktyBean> punkty) {
         int minorFixesIndex = 0;
-        for(int i = 0; i < punkty.size(); i++) {
-            if(punkty.get(i).getTytul().contains("Koszty drobnych napraw")) {
+        for (int i = 0; i < punkty.size(); i++) {
+            if (punkty.get(i).getTytul().contains("Koszty drobnych napraw")) {
                 minorFixesIndex = i;
             }
         }
@@ -86,8 +86,8 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
 
     private double getMinorFixesExpenses(List<Expenses.RocznikiBean> roczniki, int minorFixesIndex) {
         double minorFixesExpenses = 0;
-        for(Expenses.RocznikiBean rocznik : roczniki) {
-            for(int i = 0; i < rocznik.getPola().size(); i++) {
+        for (Expenses.RocznikiBean rocznik : roczniki) {
+            for (int i = 0; i < rocznik.getPola().size(); i++) {
                 minorFixesExpenses += Double.parseDouble(rocznik.getPola().get(minorFixesIndex));
             }
         }
