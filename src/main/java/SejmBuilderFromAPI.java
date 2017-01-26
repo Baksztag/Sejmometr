@@ -25,7 +25,7 @@ public class SejmBuilderFromAPI implements SejmBuilder {
         while (res.getLinks().getNext() != null) {
             res.getDataobject().forEach(dataobject -> {
                 try {
-                    deputies.add(new Deputy(new DeputyBuilderFromAPI(dataobject.getId(), dataobject.getData().getName())));
+                    deputies.add(new Deputy(new DeputyBuilderFromAPI(dataobject.getId(), dataobject.getData().getName(), termOfOffice)));
                 } catch (IOException e) {
                     System.err.println(e);
                 }
@@ -35,7 +35,7 @@ public class SejmBuilderFromAPI implements SejmBuilder {
         }
         res.getDataobject().forEach(dataobject -> {
             try {
-                deputies.add(new Deputy(new DeputyBuilderFromAPI(dataobject.getId(), dataobject.getData().getName())));
+                deputies.add(new Deputy(new DeputyBuilderFromAPI(dataobject.getId(), dataobject.getData().getName(), termOfOffice)));
             } catch (IOException e) {
                 System.err.println(e);
             }

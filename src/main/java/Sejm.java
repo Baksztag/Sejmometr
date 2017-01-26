@@ -15,16 +15,16 @@ public class Sejm {
         this.termOfOffice = builder.getTermOfOffice();
     }
 
-    private Deputy getDeputyByName(String name) {
+    private Deputy getDeputyByName(String name) throws IllegalArgumentException {
         for (Deputy deputy : deputies) {
             if (deputy.getName().equals(name)) {
                 return deputy;
             }
         }
-        return null;
+        throw new IllegalArgumentException("No deputy with given name.");
     }
 
-    public double deputyExpenses(String name) {
+    public double deputyExpenses(String name) throws IllegalArgumentException {
         Deputy deputy = getDeputyByName(name);
         if (deputy != null) {
             return deputy.getExpenses();
@@ -32,7 +32,7 @@ public class Sejm {
         return 0.0;
     }
 
-    public double deputyMinorFixesExpenses(String name) {
+    public double deputyMinorFixesExpenses(String name) throws IllegalArgumentException {
         Deputy deputy = getDeputyByName(name);
         if (deputy != null) {
             return deputy.getMinorFixesExpenses();

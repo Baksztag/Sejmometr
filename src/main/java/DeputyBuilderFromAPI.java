@@ -23,7 +23,7 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
     private double minorFixesExpenses;
 
 
-    public DeputyBuilderFromAPI(int id, String name) throws IOException {
+    public DeputyBuilderFromAPI(int id, String name, int termOfOffice) throws IOException {
         this.id = id;
         this.name = name;
 
@@ -35,7 +35,7 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
             List<Expenses.PunktyBean> punkty = res.getLayers().getWydatki().getPunkty();
             List<Expenses.RocznikiBean> roczniki = res.getLayers().getWydatki().getRoczniki();
 
-            this.expenses = getExpenses(roczniki);
+            this.expenses = getExpenses(roczniki, termOfOffice);
             this.minorFixesExpenses = getMinorFixesExpenses(roczniki, getMinorFixesIndex(punkty));
 
             int trips = 0;
@@ -64,14 +64,26 @@ public class DeputyBuilderFromAPI implements DeputyBuilder {
         }
     }
 
-    private double getExpenses(List<Expenses.RocznikiBean> roczniki) {
+    private double getExpenses(List<Expenses.RocznikiBean> roczniki, int termOfOffice) {
         double sumOfExpenses = 0;
         for (Expenses.RocznikiBean rocznik : roczniki) {
             for (String pole : rocznik.getPola()) {
-                sumOfExpenses += Double.parseDouble(pole);
+                if (term(Integer.parseInt(rocznik.getRok())) == termOfOffice) {
+                    sumOfExpenses += Double.parseDouble(pole);
+                }
             }
         }
         return sumOfExpenses;
+    }
+
+    private int term(int year) {
+        if (year >= 2011 && year < 2016) {
+            return 7;
+        }
+        if (year >= 2016 && year < 2021) {
+            return 8;
+        }
+        return 0;
     }
 
     private int getMinorFixesIndex(List<Expenses.PunktyBean> punkty) {
