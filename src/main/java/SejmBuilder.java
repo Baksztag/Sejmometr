@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -6,5 +5,6 @@ import java.util.List;
  */
 public interface SejmBuilder {
     List<Deputy> getDeputies();
+
     int getTermOfOffice();
 }

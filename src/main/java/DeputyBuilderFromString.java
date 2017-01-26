@@ -13,7 +13,7 @@ public class DeputyBuilderFromString implements DeputyBuilder {
 
 
     public DeputyBuilderFromString(String input) {
-        String[] split =  input.split(":");
+        String[] split = input.split(":");
         this.id = Integer.parseInt(split[0]);
         this.name = split[1];
         this.expenses = Double.parseDouble(split[2]);

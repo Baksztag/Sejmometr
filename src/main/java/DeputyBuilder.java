@@ -3,11 +3,18 @@
  */
 public interface DeputyBuilder {
     int getId();
+
     String getName();
+
     int getTripsAbroad();
+
     int getDaysAbroad();
+
     double getMostExpensiveTrip();
+
     boolean getVisitedItaly();
+
     double getExpenses();
+
     double getMinorFixesExpenses();
 }
