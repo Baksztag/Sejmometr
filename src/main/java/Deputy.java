@@ -25,10 +25,7 @@ public class Deputy {
 
     @Override
     public String toString() {
-        return "Deputy{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     public int getId() {

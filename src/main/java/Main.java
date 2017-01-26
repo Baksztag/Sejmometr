@@ -6,27 +6,41 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         try {
+            ArgumentsParser parser = new ArgumentsParser(args);
+            int termOfOffice = parser.getTermOfOffice();
+            String deputyName = parser.getName();
+            boolean download = parser.download();
 
+            Sejm sejm;
+            if (download) {
+                sejm = new Sejm(new SejmBuilderFromAPI(termOfOffice));
+                sejm.saveDeputiesToTxt();
+            } else {
+                sejm = new Sejm(new SejmBuilderFromTxt(termOfOffice));
+            }
+            if (!deputyName.isEmpty()) {
+                System.out.println(deputyName + "'s expenses: "
+                        + sejm.deputyExpenses(deputyName));
+                System.out.println(deputyName + "'s minor fixes expenses: "
+                        + sejm.deputyMinorFixesExpenses(deputyName));
+            }
 
-
-            SejmBuilder builder1 = new SejmBuilderFromTxt(7);
-            SejmBuilder builder2 = new SejmBuilderFromTxt(8);
-            Sejm sejm1 = new Sejm(builder1);
-            Sejm sejm2 = new Sejm(builder2);
-
-            System.out.println(sejm1.getDeputies());
-            System.out.println(sejm1.deputyExpenses("Anna Grodzka"));
-            System.out.println(sejm1.deputyMinorFixesExpenses("Tadeusz Iwiński"));
-            System.out.println(sejm1.averageExpenses());
-            System.out.println(sejm1.mostTravelsDeputy());
-            System.out.println(sejm1.mostDaysAbroadDeputy());
-            System.out.println(sejm1.mostExpensiveTravelDeputy());
-            System.out.println(sejm1.deputiesWhoVisitedItaly().size());
+            System.out.println("Average deputy expenses: "
+                    + sejm.averageExpenses());
+            System.out.println("Deputy who made most trips abroad: "
+                    + sejm.mostTravelsDeputy());
+            System.out.println("Deputy who spent most days abroad: "
+                    + sejm.mostDaysAbroadDeputy());
+            System.out.println("Deputy who made most expensive trip: "
+                    + sejm.mostExpensiveTravelDeputy());
+            System.out.println("Deputies who visited Italy:");
+            for (Deputy deputy : sejm.deputiesWhoVisitedItaly()) {
+                System.out.println(deputy);
+            }
         } catch (IllegalArgumentException e) {
             System.err.println(e);
         } catch (IOException e) {
             System.err.println(e);
-            System.err.println("Make sure to initialize the file with -r option");
         }
     }
 }
